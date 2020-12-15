@@ -117,4 +117,4 @@ In addition to rules, the json config file can specify the same options as in co
 
 
 ## Caveat emptor
-When using --inplace=true, this utility will **modify** your source code ... backup advised
+When using --inplace=true, this utility will **modify** your files ... backup advised
