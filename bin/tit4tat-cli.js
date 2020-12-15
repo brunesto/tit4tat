@@ -19,7 +19,7 @@ const cmdLineArgs = yargs(hideBin(process.argv))
     //.command(['bwd'], 'replace in backward fashion f->s',) 
     .option('order', {
 
-        describe: 'replacement order: fwd will replace occurences of rule.s by rule.f',
+        describe: 'replacement order',
         default: 'fwd',
         type: 'string',
         choices: ['fwd', 'bwd']
@@ -73,12 +73,12 @@ const cmdLineArgs = yargs(hideBin(process.argv))
     .group(['inplace', 'out'], 'Output selection:')
     .group(['order', 'encoding', 'config'], 'Transformation:')
     .demandOption(['config'], 'Please provide a config file for rules e.g. --config=rules.json')
-    .describe(
+    .epilog(
         "Notes: "+
-        "\nThe replacement rules must be defined in a separate config file specified with --config"+
-        '\ne.g. {"rules":[{"s":"AAA","f":"BBB" }]} will cause all occurences of AAA to be replaced by BBB'+
-        "\n\nWhen --order=fwd (default) the rules are applied in sequence, replacing rule.t by rule.f, "+
-        "\nwhilst --order=bwd will cause the rules to be applied in reverse sequence and replacing rule.f by rule.t"+
+        "\nThe replacement rules must be defined in a separate config file specified with --config "+
+        '\e.g. {"rules":[{"s":"AAA","f":"BBB" }]} will cause all occurences of AAA to be replaced by BBB.'+
+        "\n\nWhen --order=fwd (default) the rules are applied in sequence, and each rule replaces all occurences of s by f."+
+        " The reverse operation is --order=bwd."+
     '')
     .argv
 

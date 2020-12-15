@@ -26,7 +26,7 @@ E.g. usages:
 
 * If you wish to perform the reverse operation, --order=bwd will cause the rules to be applied in reverse sequence and each rule to replace f by s
 
-.. that's it
+... that's it 
 
 ## Simple example: 
 
@@ -94,25 +94,26 @@ $ node_modules/tit4tat/bin/tit4tat-cli.js --inplace --config=unlog.json  <b>--or
     --out      output folder used when --inplace=false  [string] [default: "/tmp"]
 
     Transformation:
-    --order     replacement order: fwd will replace occurences of rule.s by rule.f
-                                [string] [choices: "fwd", "bwd"] [default: "fwd"]
+    --order     replacement order[string] [choices: "fwd", "bwd"] [default: "fwd"]
     --encoding  encoding for text files                [string] [default: "utf-8"]
     --config    configuration input file                       [string] [required]
 
     Options:
-    --help                                    Show help                  [boolean]
-    --version                                 Show version number        [boolean]
-    --verbose                                 dumps useless traces
-                                                        [boolean] [default: false]
-    --quiet                                   dont dump anything on stdout
-                                                        [boolean] [default: false]
+    --help     Show help                                                 [boolean]
+    --version  Show version number                                       [boolean]
+    --verbose  dumps useless traces                     [boolean] [default: false]
+    --quiet    dont dump anything on stdout             [boolean] [default: false]
 
-The json config file can specify the same options as the command line args. e.g.
+
+In addition to rules, the json config file can specify the same options as in command line args. e.g.
 
     {
        'text':false,
        'inplace':true,
         ...
+       'rules':{
+        ...
+        
 
 
 ## Caveat emptor
