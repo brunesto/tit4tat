@@ -1,0 +1,32 @@
+{
+  "name": "tit4tat",
+  "version": "0.0.1",
+  "description": "small utility to replace strings in files and reverse ",
+  "bin": {
+    "tit4tat": "bin/cli.js"
+  },
+  "main": "tit4tat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunesto/tit4tat.git"
+  },
+  "keywords": [
+    "string",
+    "replacement"
+  ],
+  "author": "brunesto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunesto/tit4tat/issues"
+  },
+  "homepage": "https://github.com/brunesto/tit4tat#readme",
+  "dependencies": {
+    "yargs": "^16.2.0",
+    "string.prototype.replaceall": "^1.0.4",
+    "istextorbinary": "^5.12.0",
+    "file-match": "^1.0.2"
+  }
+}
