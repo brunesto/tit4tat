@@ -13,7 +13,7 @@ exports.defaultOptions = {
   order: "fwd",
   // encoding for input/output files
   encoding: "utf-8",
-  // transformation rules
+  // replacement rules
   // each rule has 2 terms, "s" the input string and "f" the replacement
   rules: [],
   // replace in place, like sed -i (either set this to true or specify out)
@@ -24,7 +24,7 @@ exports.defaultOptions = {
   src: "./src",
   // filter filenames (using file-match packages)
   filters: ['**/*'],
-  // only apply transformations to text files (using istextorbinary packages)
+  // only apply replacements to text files (using istextorbinary packages)
   text: true,
   // destination of output, when inplace is false
   out: "/tmp"

@@ -1,8 +1,9 @@
 #! /usr/bin/env node
 
+const fs = require('fs');
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
-var tit4tat = require('../tit4tat')
+const tit4tat = require('../tit4tat')
 
 // -- command line --------------------------------------------------------
 
@@ -23,31 +24,28 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'string',
         choices: ['fwd', 'bwd']
     })
-
     .option('encoding', {
 
         default: "utf-8",
         describe: 'encoding for text files',
         type: 'string'
     })
-    
-.option('inplace', {
+    .option('inplace', {
 
-    default: 'true',
-    describe: 'in place replacement (like sed -i)',
-    type: 'boolean'
-})
-
-.array("filters")
+        default: 'true',
+        describe: 'in place replacement (like sed -i)',
+        type: 'boolean'
+    })
+    .array("filters")
     .describe("filters", "one or more filename filters, e.g. **/*.js")
     .option('verbose', {
         describe: 'dumps useless traces',
-        default: 'false',
+        default: false,
         type: 'boolean'
     })
     .option('quiet', {
         describe: 'dont dump anything on stdout',
-        default: 'false',
+        default: false,
         type: 'boolean'
     })
     .option('text', {
@@ -56,29 +54,36 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'boolean'
     })
     .option('src', {
-        
+
         describe: 'src folder',
         default: 'src',
-        type: 'string' 
+        type: 'string'
     })
     .option('out', {
         describe: 'output folder used when --inplace=false',
         default: '/tmp',
-        type: 'string' 
+        type: 'string'
     })
     .option('config', {
         describe: 'configuration input file',
-        
-        type: 'string' 
-    })
-    .group(['src','filters','text'],'Input selection:')
-    .group(['inplace','out'],'Output selection:')
-    .group(['order','encoding','config'],'Transformation:')
-    .demandOption(['config'], 'Please provide a config file for rules e.g. --config=rules.json')
 
-.argv
+        type: 'string'
+    })
+    .group(['src', 'filters', 'text'], 'Input selection:')
+    .group(['inplace', 'out'], 'Output selection:')
+    .group(['order', 'encoding', 'config'], 'Transformation:')
+    .demandOption(['config'], 'Please provide a config file for rules e.g. --config=rules.json')
+    .describe(
+        "Notes: "+
+        "\nThe replacement rules must be defined in a separate config file specified with --config"+
+        '\ne.g. {"rules":[{"s":"AAA","f":"BBB" }]} will cause all occurences of AAA to be replaced by BBB'+
+        "\n\nWhen --order=fwd (default) the rules are applied in sequence, replacing rule.t by rule.f, "+
+        "\nwhilst --order=bwd will cause the rules to be applied in reverse sequence and replacing rule.f by rule.t"+
+    '')
+    .argv
+
 options = {...options, ...cmdLineArgs }
-if (options.trace) console.log("cmdLineArgs:" + JSON.stringify(cmdLineArgs))
+if (options.verbose) console.log("cmdLineArgs:" + JSON.stringify(cmdLineArgs))
 
 // 3 overwrite options with file content
 const optionsFile = cmdLineArgs.config
@@ -99,4 +104,4 @@ if (!options.quiet) {
 if (options.trace) console.log("optionsArgs:" + JSON.stringify(options, null, 2))
 
 tit4tat.tit4tat(options)
-console.log("after")
+    //console.log("after")
