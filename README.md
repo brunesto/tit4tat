@@ -1,6 +1,6 @@
 # tit4tat
 
-Simple utility to replace strings in text files. The replacements are meant to be reversible.
+Simple utility to replace strings in text files. The replacements are meant to be reversible, but this is not enforced
 
 E.g. usages:
 
