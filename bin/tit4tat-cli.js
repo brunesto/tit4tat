@@ -32,7 +32,7 @@ const cmdLineArgs = yargs(hideBin(process.argv))
     })
     .option('inplace', {
 
-        default: 'true',
+        default: 'false',
         describe: 'in place replacement (like sed -i)',
         type: 'boolean'
     })
