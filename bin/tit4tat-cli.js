@@ -20,19 +20,19 @@ const cmdLineArgs = yargs(hideBin(process.argv))
     .option('order', {
 
         describe: 'replacement order',
-        default: 'fwd',
+        default: options.order,
         type: 'string',
         choices: ['fwd', 'bwd']
     })
     .option('encoding', {
 
-        default: "utf-8",
+        default: options.encoding,
         describe: 'encoding for text files',
         type: 'string'
     })
     .option('inplace', {
 
-        default: 'false',
+        default: options.inplace,
         describe: 'in place replacement (like sed -i)',
         type: 'boolean'
     })
@@ -40,28 +40,28 @@ const cmdLineArgs = yargs(hideBin(process.argv))
     .describe("filters", "one or more filename filters, e.g. **/*.js")
     .option('verbose', {
         describe: 'dumps useless traces',
-        default: false,
+        default: options.verbose,
         type: 'boolean'
     })
     .option('quiet', {
         describe: 'dont dump anything on stdout',
-        default: false,
+        default: options.quiet,
         type: 'boolean'
     })
     .option('text', {
         describe: 'only transform text files',
-        default: 'true',
+        default: options.text,
         type: 'boolean'
     })
     .option('src', {
 
         describe: 'src folder',
-        default: 'src',
+        default: options.src,
         type: 'string'
     })
     .option('out', {
         describe: 'output folder used when --inplace=false',
-        default: '/tmp',
+        default:options.out,
         type: 'string'
     })
     .option('config', {
