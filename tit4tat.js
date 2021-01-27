@@ -17,7 +17,7 @@ exports.defaultOptions = {
   // each rule has 2 terms, "s" the input string and "f" the replacement
   rules: [],
   // replace in place, like sed -i (either set this to true or specify out)
-  inplace: false,
+  overwrite: false,
   // directory of files to be transformed
   // Warning: absolute path wont work with filters 
   // @see https://github.com/douzi8/file-match/issues/3
@@ -26,7 +26,7 @@ exports.defaultOptions = {
   filters: ['**/*'],
   // only apply replacements to text files (using istextorbinary packages)
   text: true,
-  // destination of output, when inplace is false
+  // destination of output, when overwrite is false
   out: "/tmp"
 }
 
@@ -101,7 +101,7 @@ function getInputPath(options, filename) {
  */
 function getOutputPath(options, filename) {
     var retVal = null
-    if (options.inplace)
+    if (options.overwrite)
         retVal = getInputPath(options, filename)
     else {
         retVal = options.out + "/" + filename
@@ -180,8 +180,8 @@ function listFiles(options, rootDir, dir) {
 exports.tit4tat=function tit4tat(optionsp) {
     const options = {...exports.defaultOptions, ...optionsp }
 
-    if (!options.inplace && !options.out) {
-        throw "out must be defined when inplace is not set"
+    if (!options.overwrite && !options.out) {
+        throw "out must be defined when overwrite is not set"
     }
 
     // convert to absolute path

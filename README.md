@@ -5,7 +5,7 @@ Simple utility to replace strings in text files. The replacements are meant to b
 E.g. usages:
 
 * Comment/uncomment log statements
-* Cheap obfuscation of variable/function names  
+* Simple obfuscation of variable/function names  
 
 ## Install
 
@@ -46,11 +46,11 @@ unlog.json :
 
 To comment all console.log statements in all text files found in src folder and sub-folders:
 
-    $ node_modules/tit4tat/bin/tit4tat-cli.js --inplace --config=unlog.json
+    $ node_modules/tit4tat/bin/tit4tat-cli.js --overwrite --config=unlog.json
 
 To restore the console.log statements:
 <pre>
-$ node_modules/tit4tat/bin/tit4tat-cli.js --inplace --config=unlog.json  <b>--order bwd</b>
+$ node_modules/tit4tat/bin/tit4tat-cli.js --overwrite --config=unlog.json  <b>--order bwd</b>
 </pre>
 
 
@@ -60,7 +60,7 @@ $ node_modules/tit4tat/bin/tit4tat-cli.js --inplace --config=unlog.json  <b>--or
 ## Explanation of default output ##
 <pre>
     reading options from tools/obfuscate-dist.json  
-    src:dist/          <i> <-- out directory is not shown because --inplace=true </i>
+    src:dist/          <i> <-- out directory is not shown because --overwrite=true </i>
     * ti	./bundle.js
       ti	./index.html
 <i>
@@ -90,8 +90,8 @@ $ node_modules/tit4tat/bin/tit4tat-cli.js --inplace --config=unlog.json  <b>--or
     --text     only transform text files               [boolean] [default: "true"]
 
     Output selection:
-    --inplace  in place replacement (like sed -i)      [boolean] [default: "true"]
-    --out      output folder used when --inplace=false  [string] [default: "/tmp"]
+    --overwrite  in place replacement (like sed -i)      [boolean] [default: "true"]
+    --out      output folder used when --overwrite=false  [string] [default: "/tmp"]
 
     Transformation:
     --order     replacement order[string] [choices: "fwd", "bwd"] [default: "fwd"]
@@ -109,7 +109,7 @@ In addition to rules, the json config file can specify the same options as in co
 
     {
        'text':false,
-       'inplace':true,
+       'overwrite':true,
         ...
        'rules':{
         ...
@@ -117,4 +117,4 @@ In addition to rules, the json config file can specify the same options as in co
 
 
 ## Caveat emptor
-When using --inplace=true, this utility will **modify** your files ... backup advised
+When using --overwrite=true, this utility will **modify** your files ... backup recommended

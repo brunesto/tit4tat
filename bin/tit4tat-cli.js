@@ -30,9 +30,9 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         describe: 'encoding for text files',
         type: 'string'
     })
-    .option('inplace', {
+    .option('overwrite', {
 
-        default: options.inplace,
+        default: options.overwrite,
         describe: 'in place replacement (like sed -i)',
         type: 'boolean'
     })
@@ -60,7 +60,7 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'string'
     })
     .option('out', {
-        describe: 'output folder used when --inplace=false',
+        describe: 'output folder used when --overwrite=false',
         default:options.out,
         type: 'string'
     })
@@ -70,7 +70,7 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'string'
     })
     .group(['src', 'filters', 'text'], 'Input selection:')
-    .group(['inplace', 'out'], 'Output selection:')
+    .group(['overwrite', 'out'], 'Output selection:')
     .group(['order', 'encoding', 'config'], 'Transformation:')
     .demandOption(['config'], 'Please provide a config file for rules e.g. --config=rules.json')
     .epilog(
@@ -98,7 +98,7 @@ options = {...options, ...cmdLineArgs }
 
 if (!options.quiet) {
     console.log("src:" + options.src)
-    if (!options.inplace)
+    if (!options.overwrite)
         console.log("out:" + options.out)
 }
 if (options.trace) console.log("optionsArgs:" + JSON.stringify(options, null, 2))
