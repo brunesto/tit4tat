@@ -30,9 +30,9 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         describe: 'encoding for text files',
         type: 'string'
     })
-    .option('overwrite', {
+    .option('inplace', {
 
-        default: options.overwrite,
+        default: options.inplace,
         describe: 'in place replacement (like sed -i)',
         type: 'boolean'
     })
@@ -60,7 +60,7 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'string'
     })
     .option('out', {
-        describe: 'output folder used when --overwrite=false',
+        describe: 'output folder used when --inplace=false',
         default:options.out,
         type: 'string'
     })
@@ -70,15 +70,21 @@ const cmdLineArgs = yargs(hideBin(process.argv))
         type: 'string'
     })
     .group(['src', 'filters', 'text'], 'Input selection:')
-    .group(['overwrite', 'out'], 'Output selection:')
+    .group(['inplace', 'out'], 'Output selection:')
     .group(['order', 'encoding', 'config'], 'Transformation:')
     .demandOption(['config'], 'Please provide a config file for rules e.g. --config=rules.json')
+    //.usage("")
     .epilog(
         "Notes: "+
         "\nThe replacement rules must be defined in a separate config file specified with --config "+
-        '\e.g. {"rules":[{"s":"AAA","f":"BBB" }]} will cause all occurences of AAA to be replaced by BBB.'+
+        '\n e.g. {"rules":[{"s":"AAA","f":"BBB" }]} will cause all occurences of AAA to be replaced by BBB.'+
+        "\nAll the command line flags can be also defined into the config file."+
         "\n\nWhen --order=fwd (default) the rules are applied in sequence, and each rule replaces all occurences of s by f."+
-        " The reverse operation is --order=bwd."+
+        "\nThe reverse operation is --order=bwd."+
+        "\n\nEvery file found in --src will be displayed preceded by one or more flags:"+
+        "\n  *   : at least one rule was applied on this file"+
+        "\n  b/t : file identified as binary or text"+
+        "\n  i/e : included or excluded by filters argument"+                
     '')
     .argv
 
@@ -98,7 +104,7 @@ options = {...options, ...cmdLineArgs }
 
 if (!options.quiet) {
     console.log("src:" + options.src)
-    if (!options.overwrite)
+    if (!options.inplace)
         console.log("out:" + options.out)
 }
 if (options.trace) console.log("optionsArgs:" + JSON.stringify(options, null, 2))

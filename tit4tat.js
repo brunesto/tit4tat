@@ -17,16 +17,15 @@ exports.defaultOptions = {
   // each rule has 2 terms, "s" the input string and "f" the replacement
   rules: [],
   // replace in place, like sed -i (either set this to true or specify out)
-  overwrite: false,
+  inplace: false,
   // directory of files to be transformed
-  // Warning: absolute path wont work with filters 
-  // @see https://github.com/douzi8/file-match/issues/3
-  src: "./src",
-  // filter filenames (using file-match packages)
+  
+  src: 'src',
+  // filter filenames (using minimatch packages)
   filters: ['**/*'],
   // only apply replacements to text files (using istextorbinary packages)
   text: true,
-  // destination of output, when overwrite is false
+  // destination of output, when inplace is false
   out: "/tmp"
 }
 
@@ -38,7 +37,9 @@ const { isText, isBinary, getEncoding } = require('istextorbinary')
 
 const { exit } = require('process');
 //const { option } = require('yargs');
-var fileMatch = require('file-match');
+var minimatch = require("minimatch")
+ 
+
 const replaceAll = require('string.prototype.replaceall');
 
 
@@ -101,7 +102,7 @@ function getInputPath(options, filename) {
  */
 function getOutputPath(options, filename) {
     var retVal = null
-    if (options.overwrite)
+    if (options.inplace)
         retVal = getInputPath(options, filename)
     else {
         retVal = options.out + "/" + filename
@@ -124,11 +125,10 @@ function processFile(options, filename) {
     if (options.verbose) console.log("processFile", inputPath);
     const outputPath = getOutputPath(options, filename)
 
-    var filter = fileMatch(
-        options.filters
-    );
-
-    const nameOk = filter(filename);
+    const normalized=path.normalize(filename)
+    //console.log("normalized:"+normalized)
+    //console.log("options.filters:"+JSON.stringify(options.filters),{ debug: true })
+    const nameOk = options.filters.some((filter)=>minimatch(normalized,filter));
     const textOk = (!options.text || isText(inputPath))
     if (nameOk && textOk) {
         // transform the file
@@ -180,8 +180,8 @@ function listFiles(options, rootDir, dir) {
 exports.tit4tat=function tit4tat(optionsp) {
     const options = {...exports.defaultOptions, ...optionsp }
 
-    if (!options.overwrite && !options.out) {
-        throw "out must be defined when overwrite is not set"
+    if (!options.inplace && !options.out) {
+        throw "out must be defined when inplace is not set"
     }
 
     // convert to absolute path

@@ -7,7 +7,7 @@
   },
   "main": "tit4tat.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,12 +24,14 @@
   },
   "homepage": "https://github.com/brunesto/tit4tat#readme",
   "dependencies": {
-    "yargs": "^16.2.0",
-    "string.prototype.replaceall": "^1.0.4",
     "istextorbinary": "^5.12.0",
-    "file-match": "^1.0.2"
+    "minimatch": "^3.0.4",
+    "string.prototype.replaceall": "^1.0.4",
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
+    "fs-extra": "^9.1.0",
+    "mocha": "^8.2.1",
     "np": "^7.0.0"
   }
 }
