@@ -1,6 +1,6 @@
 {
   "name": "tit4tat",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "simple utility to replace strings in files and reverse ",
   "bin": {
     "tit4tat": "bin/tit4tat-cli.js"
